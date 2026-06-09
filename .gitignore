@@ -1,0 +1,18 @@
+# Ignorer le dossier qui contient toutes les archives générées
+MAXScript_ZIP_Package/
+Library backup/
+_old/
+omega 2024/
+scripts linked/
+src/
+update 1/
+
+# Ignorer les gros fichiers potentiels (vidéos, scènes max, etc.)
+*.max
+*.zip
+*.rar
+*.mp4
+
+# Ignorer les fichiers temporaires
+*.tmp
+*.bak
