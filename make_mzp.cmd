@@ -93,15 +93,15 @@ set "installfile=%outdir%\install_scripts.ms"
 >>"%installfile%" echo omegaVersionPath  = scriptsDir + "\\Omega\\version.txt"
 >>"%installfile%" echo.
 >>"%installfile%" echo fn safeCopy src dst = (
->>"%installfile%" echo      if doesFileExist src then (
->>"%installfile%" echo          local dstDir = getFilenamePath dst
->>"%installfile%" echo          if not doesFileExist dstDir then makeDir dstDir
->>"%installfile%" echo          if doesFileExist dst then deleteFile dst
->>"%installfile%" echo          (dotNetClass "System.IO.File").Copy src dst
->>"%installfile%" echo          format "copied %% to %%\n" src dst
->>"%installfile%" echo      ) else (
->>"%installfile%" echo          format "WARNING: not found: %%\n" src
->>"%installfile%" echo      )
+>>"%installfile%" echo     if doesFileExist src then (
+>>"%installfile%" echo         local dstDir = getFilenamePath dst
+>>"%installfile%" echo         if not doesFileExist dstDir then makeDir dstDir
+>>"%installfile%" echo         if doesFileExist dst then deleteFile dst
+>>"%installfile%" echo         (dotNetClass "System.IO.File").Copy src dst
+>>"%installfile%" echo         format "copied %% to %%\n" src dst
+>>"%installfile%" echo     ) else (
+>>"%installfile%" echo         format "WARNING: not found: %%\n" src
+>>"%installfile%" echo     )
 >>"%installfile%" echo )
 >>"%installfile%" echo.
 >>"%installfile%" echo safeCopy (tempDir + "Omega.mnx")         omegaMNXPath
@@ -114,8 +114,8 @@ set "installfile=%outdir%\install_scripts.ms"
 >>"%installfile%" echo oldFiles = getFiles (userMacroDir + "\\Omega-*.mcr")
 >>"%installfile%" echo join oldFiles (getFiles (userMacroDir + "\\Omega_*.mcr"))
 >>"%installfile%" echo for f in oldFiles do (
->>"%installfile%" echo      deleteFile f
->>"%installfile%" echo      format "Supprime : %%\n" f
+>>"%installfile%" echo     deleteFile f
+>>"%installfile%" echo     format "Supprime : %%\n" f
 >>"%installfile%" echo )
 >>"%installfile%" echo.
 >>"%installfile%" echo genericFiles = #(
@@ -133,10 +133,10 @@ for %%F in ("%srcdir%\*") do (
     if /I not "!ext!"==".tmp" (
     if /I not "!fname!"=="Thumbs.db" (
         if !first!==1 (
-            >>"%installfile%" echo      "!fname!"
+            >>"%installfile%" echo     "!fname!"
             set first=0
         ) else (
-            >>"%installfile%" echo      ,"!fname!"
+            >>"%installfile%" echo     ,"!fname!"
         )
     ))))))))
 )
@@ -144,25 +144,25 @@ for %%F in ("%srcdir%\*") do (
 >>"%installfile%" echo )
 >>"%installfile%" echo.
 >>"%installfile%" echo for fname in genericFiles do (
->>"%installfile%" echo      local dstPath = userMacroDir + "\\" + fname
->>"%installfile%" echo      safeCopy (tempDir + fname) dstPath
+>>"%installfile%" echo     local dstPath = userMacroDir + "\\" + fname
+>>"%installfile%" echo     safeCopy (tempDir + fname) dstPath
 >>"%installfile%" echo.
->>"%installfile%" echo      -- On evalue (recharge) les scripts pour les activer sans redemarrer 3ds Max
->>"%installfile%" echo      local ext = toLower (getFilenameType fname)
->>"%installfile%" echo      if ext == ".mcr" or ext == ".ms" then (
->>"%installfile%" echo          try ( fileIn dstPath ) catch ( format "Erreur d'evaluation sur %%\n" fname )
->>"%installfile%" echo      )
+>>"%installfile%" echo     -- On evalue (recharge) les scripts pour les activer sans redemarrer 3ds Max
+>>"%installfile%" echo     local ext = toLower (getFilenameType fname)
+>>"%installfile%" echo     if ext == ".mcr" or ext == ".ms" then (
+>>"%installfile%" echo         try ( fileIn dstPath ) catch ( format "Erreur d'evaluation sur %%\n" fname )
+>>"%installfile%" echo     )
 >>"%installfile%" echo )
 >>"%installfile%" echo.
 >>"%installfile%" echo -- -----------------------------------------------
 >>"%installfile%" echo -- Rechargement du Menu (3ds Max 2025+)
 >>"%installfile%" echo -- -----------------------------------------------
 >>"%installfile%" echo try (
->>"%installfile%" echo      -- On execute le loader qui vient d'etre installe pour inscrire la variable d'environnement
->>"%installfile%" echo      fileIn omegaLoaderPath
->>"%installfile%" echo      print "Menu Omega charge avec succes !"
+>>"%installfile%" echo     -- On execute le loader qui vient d'etre installe pour inscrire la variable d'environnement
+>>"%installfile%" echo     fileIn omegaLoaderPath
+>>"%installfile%" echo     print "Menu Omega charge avec succes !"
 >>"%installfile%" echo ) catch (
->>"%installfile%" echo      format "Erreur lors du chargement du menu : %%\n" (getCurrentException())
+>>"%installfile%" echo     format "Erreur lors du chargement du menu : %%\n" (getCurrentException())
 >>"%installfile%" echo )
 >>"%installfile%" echo.
 >>"%installfile%" echo print "Installation terminée."
